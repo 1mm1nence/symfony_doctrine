@@ -3,21 +3,16 @@
 namespace App\DataFixtures;
 
 use App\Entity\VinylMix;
+use App\Factory\VinylMixFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
+    // to load:
+    // symfony console doctrine:fixtures:load
     public function load(ObjectManager $manager): void
     {
-        $mix = new VinylMix();
-        $mix->setTitle('Do you Remember... Phil Collins?!');
-        $mix->setDescription('A pure mix of drummers');
-        $genres = ['pop', 'rock'];
-        $mix->setGenre($genres[array_rand($genres)]);
-        $mix->setTrackCount(rand(5, 20));
-        $mix->setVotes(rand(-50, 50));
-        $manager->persist($mix);
-        $manager->flush();
+        VinylMixFactory::createMany(25);
     }
 }
